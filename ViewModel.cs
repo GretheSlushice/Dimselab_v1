@@ -13,7 +13,7 @@ namespace Dimselab_v1
 {
     class ViewModel : INotifyPropertyChanged
     {
-        public Project _selectedProject;
+        private Project _selectedProject;
 
         private ObservableCollection<Project> _projects = new ObservableCollection<Project>();
 
