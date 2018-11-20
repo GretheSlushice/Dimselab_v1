@@ -7,7 +7,10 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using Windows.UI.Xaml;
+using Windows.UI.Xaml.Controls;
 using Dimselab_v1.Annotations;
+using GalaSoft.MvvmLight.Command;
 
 namespace Dimselab_v1
 {
@@ -18,6 +21,8 @@ namespace Dimselab_v1
         private ObservableCollection<Project> _projects = new ObservableCollection<Project>();
 
         public event PropertyChangedEventHandler PropertyChanged;
+
+        private RelayCommand _addProjectCommand;
 
         public Project SelectedProject
         {
@@ -36,6 +41,12 @@ namespace Dimselab_v1
             set { _projects = value; }
         }
 
+        public RelayCommand AddProjectCommand
+        {
+            get { return _addProjectCommand; }
+            set { _addProjectCommand = value; }
+        }
+
 
         public ViewModel()
         {
@@ -48,6 +59,12 @@ namespace Dimselab_v1
             Projects[0].Participants.Add(new Participant("Bob"));
 
             SelectedProject = Projects[0];
+            _addProjectCommand = new RelayCommand(addProject);
+        }
+
+        public void addProject()
+        {
+            ((Frame)Window.Current.Content).Navigate(typeof(AddNewProject));
         }
 
         [NotifyPropertyChangedInvocator]
